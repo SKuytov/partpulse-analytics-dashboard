@@ -63,7 +63,7 @@
   }
   async function load(id=''){
     $('#loadingLayer').classList.remove('done');
-    try{const r=await fetch(`api.php${id?`?snapshot=${encodeURIComponent(id)}`:''}`,{headers:{Accept:'application/json'}});if(!r.ok)throw new Error('Request failed');state.data=await r.json();if(state.data.error)throw new Error(state.data.error);render();}
+    try{const r=await fetch(`api_workbook.php${id?`?snapshot=${encodeURIComponent(id)}`:''}`,{headers:{Accept:'application/json'}});if(!r.ok)throw new Error('Request failed');state.data=await r.json();if(state.data.error)throw new Error(state.data.error);render();}
     catch(e){$('#dashboardContent').innerHTML='<section class="empty-state"><h2>Dashboard unavailable</h2><p>Please try again shortly or contact the administrator.</p></section>';}
     finally{setTimeout(()=>$('#loadingLayer').classList.add('done'),250)}
   }

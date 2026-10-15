@@ -1,7 +1,18 @@
 /config.php
 /vendor/
+/composer.lock
 /uploads/*
 !/uploads/.htaccess
 !/uploads/index.html
 /.DS_Store
 *.log
+
+# Never commit real PartPulse data
+*.sql
+!/sql/*.sql
+!/sql/migrations/*.sql
+!/tests/fixtures/*.sql
+*.zip
+*.xlsx
+*.csv
+partpulse-normalized-*/
