@@ -66,6 +66,22 @@ $z = new ZipArchive(); $z->open($tmpZip); $z->addFromString('orders.csv', "order
 try { PartPulseNormalizer::readZip($tmpZip); check('tampered package rejected', false); } catch (RuntimeException $e) { check('tampered package rejected', str_contains($e->getMessage(), 'Checksum')); }
 @unlink($tmpZip);
 
+echo "Guide\n";
+if (!function_exists('e')) { function e(mixed $v): string { return htmlspecialchars((string)$v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); } }
+$cfg = require $root . '/config.example.php';
+[$sla, $tz, $limit, $aliases] = [$cfg['sla_thresholds'], $cfg['timezone'], $cfg['change_log_limit'], $cfg['actor_aliases']];
+ob_start(); require $root . '/app/help_content.php'; $guide = ob_get_clean();
+preg_match_all('/\bid="([^"]+)"/', $guide, $ids);
+preg_match_all('/data-help="([^"]*)"/', (string)file_get_contents($root . '/index.php'), $links);
+$missing = array_diff(array_filter(array_unique($links[1])), $ids[1]);
+check('every dashboard info link has a guide section', !$missing && count($links[1]) > 20, implode(', ', $missing));
+preg_match_all('/data-kpi="([a-z_]+)"/', (string)file_get_contents($root . '/index.php'), $kpis);
+check('every KPI card is documented', !array_diff(array_map(fn($k) => "kpi-{$k}", $kpis[1]), $ids[1]));
+check('configured SLA limits rendered', str_contains($guide, '<td>Quote Requested</td><td class="num">5 days</td>'));
+preg_match_all('/data-toc="([^"]+)"/', (string)file_get_contents($root . '/help.php'), $toc);
+preg_match_all("/'([a-z]+)' => '[^']+',/", (string)file_get_contents($root . '/help.php'), $tocKeys);
+check('guide contents point to existing sections', !array_diff($tocKeys[1], $ids[1]) && count($tocKeys[1]) >= 14);
+
 $dsn = getenv('PP_TEST_DSN');
 if ($dsn) {
     echo "Database integration\n";

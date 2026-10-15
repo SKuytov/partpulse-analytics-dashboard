@@ -31,6 +31,7 @@ $appName = (string)($config['app_name'] ?? 'PartPulse Intelligence');
     <a class="nav-link" href="#watch">SLA watch</a>
     <a class="nav-link" href="#changes">What changed</a>
     <a class="nav-link" href="#snapshots">Snapshot diff</a>
+    <a class="nav-link nav-help" href="help.php" data-help="">Guide &amp; definitions</a>
   </nav>
   <div class="sidebar-foot"><span class="live-dot"></span><span id="asOfFoot">Public COO view</span><a href="workbook.php">Workbook snapshots</a><a href="login.php">Admin</a></div>
 </aside>
@@ -45,6 +46,7 @@ $appName = (string)($config['app_name'] ?? 'PartPulse Intelligence');
     <div class="header-controls">
       <span class="date-chip" id="asOfChip" title="Time of the PartPulse export behind this view">—</span>
       <button class="icon-button" type="button" id="shareView" aria-label="Copy link to this view" title="Copy link to this view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg></button>
+      <a class="button ghost help-button" href="help.php" data-help="" title="Guide: every metric explained"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4"/><circle cx="12" cy="16.9" r=".6" fill="currentColor"/></svg><span>Guide</span></a>
       <button class="icon-button" type="button" data-theme-toggle aria-label="Switch color theme"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button>
     </div>
   </header>
@@ -93,57 +95,57 @@ $appName = (string)($config['app_name'] ?? 'PartPulse Intelligence');
 
   <div id="dashboardContent">
     <section id="overview" class="kpi-grid kpi-grid-8" aria-label="Key performance indicators">
-      <article class="kpi kpi-feature" data-kpi="incoming"><span>New orders</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
-      <article class="kpi" data-kpi="completed"><span>Completed (delivered)</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
-      <article class="kpi" data-kpi="net_backlog" data-inverse="1"><span>Backlog change</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
-      <article class="kpi" data-kpi="backlog_end" data-inverse="1"><span>Open orders at period end</span><strong>—</strong><small>—</small></article>
-      <article class="kpi" data-kpi="lead_median" data-inverse="1"><span>Median lead time</span><strong>—</strong><small>—</small></article>
-      <article class="kpi" data-kpi="spend"><span>Delivered value</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
-      <article class="kpi" data-kpi="ordered_count"><span>Orders placed</span><strong>—</strong><small>—</small></article>
-      <article class="kpi" data-kpi="events"><span>Actions logged</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
+      <article class="kpi kpi-feature" data-kpi="incoming"><a class="info-link" href="help.php#kpi-incoming" data-help="kpi-incoming" aria-label="How this number is calculated" title="What is this? How is it calculated?">i</a><span>New orders</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
+      <article class="kpi" data-kpi="completed"><a class="info-link" href="help.php#kpi-completed" data-help="kpi-completed" aria-label="How this number is calculated" title="What is this? How is it calculated?">i</a><span>Completed (delivered)</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
+      <article class="kpi" data-kpi="net_backlog" data-inverse="1"><a class="info-link" href="help.php#kpi-net_backlog" data-help="kpi-net_backlog" aria-label="How this number is calculated" title="What is this? How is it calculated?">i</a><span>Backlog change</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
+      <article class="kpi" data-kpi="backlog_end" data-inverse="1"><a class="info-link" href="help.php#kpi-backlog_end" data-help="kpi-backlog_end" aria-label="How this number is calculated" title="What is this? How is it calculated?">i</a><span>Open orders at period end</span><strong>—</strong><small>—</small></article>
+      <article class="kpi" data-kpi="lead_median" data-inverse="1"><a class="info-link" href="help.php#kpi-lead_median" data-help="kpi-lead_median" aria-label="How this number is calculated" title="What is this? How is it calculated?">i</a><span>Median lead time</span><strong>—</strong><small>—</small></article>
+      <article class="kpi" data-kpi="spend"><a class="info-link" href="help.php#kpi-spend" data-help="kpi-spend" aria-label="How this number is calculated" title="What is this? How is it calculated?">i</a><span>Delivered value</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
+      <article class="kpi" data-kpi="ordered_count"><a class="info-link" href="help.php#kpi-ordered_count" data-help="kpi-ordered_count" aria-label="How this number is calculated" title="What is this? How is it calculated?">i</a><span>Orders placed</span><strong>—</strong><small>—</small></article>
+      <article class="kpi" data-kpi="events"><a class="info-link" href="help.php#kpi-events" data-help="kpi-events" aria-label="How this number is calculated" title="What is this? How is it calculated?">i</a><span>Actions logged</span><strong>—</strong><small>—</small><svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"></svg></article>
     </section>
     <p class="kpi-footnote muted" id="kpiFootnote"></p>
 
     <section id="flow" class="insight-grid">
       <article class="panel">
-        <div class="panel-head"><div><p class="eyebrow">Order flow</p><h2>Incoming vs completed</h2></div><span class="date-chip" id="granChip">daily</span></div>
+        <div class="panel-head"><div><p class="eyebrow">Order flow</p><h2 class="with-info">Incoming vs completed <a class="info-link" href="help.php#flow-chart" data-help="flow-chart" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div><span class="date-chip" id="granChip">daily</span></div>
         <div class="chart-box chart-tall"><canvas id="flowChart" role="img" aria-label="Incoming, completed and open backlog over time"></canvas></div>
         <div class="legend-row"><span><i class="sw sw-in"></i>New</span><span><i class="sw sw-done"></i>Completed</span><span><i class="sw sw-cancel"></i>Cancelled</span><span><i class="sw sw-line"></i>Open backlog</span></div>
       </article>
       <article class="panel">
-        <div class="panel-head"><div><p class="eyebrow">Pipeline</p><h2>Status: start vs end</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Pipeline</p><h2 class="with-info">Status: start vs end <a class="info-link" href="help.php#status-mix" data-help="status-mix" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div class="chart-box chart-tall"><canvas id="statusChart" role="img" aria-label="Status distribution at period start and end"></canvas></div>
       </article>
     </section>
 
     <section class="insight-grid three">
       <article class="panel">
-        <div class="panel-head"><div><p class="eyebrow">Movement</p><h2>Top status moves</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Movement</p><h2 class="with-info">Top status moves <a class="info-link" href="help.php#transitions" data-help="transitions" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div id="transitions" class="bar-list"></div>
       </article>
       <article class="panel">
-        <div class="panel-head"><div><p class="eyebrow">Backlog health</p><h2>Open order age</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Backlog health</p><h2 class="with-info">Open order age <a class="info-link" href="help.php#aging" data-help="aging" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div class="chart-box"><canvas id="agingChart" role="img" aria-label="Open orders by age and status"></canvas></div>
       </article>
       <article class="panel">
-        <div class="panel-head"><div><p class="eyebrow">Speed</p><h2>Lead time to delivery</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Speed</p><h2 class="with-info">Lead time to delivery <a class="info-link" href="help.php#lead-time" data-help="lead-time" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div class="chart-box"><canvas id="leadChart" role="img" aria-label="Distribution of lead time for delivered orders"></canvas></div>
         <p class="panel-note" id="leadNote"></p>
       </article>
     </section>
 
     <section id="work" class="panel table-panel">
-      <div class="panel-head"><div><p class="eyebrow">Work log · selected period</p><h2>Who moved orders</h2></div><span class="muted small" id="workNote"></span></div>
+      <div class="panel-head"><div><p class="eyebrow">Work log · selected period</p><h2 class="with-info">Who moved orders <a class="info-link" href="help.php#work" data-help="work" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div><span class="muted small" id="workNote"></span></div>
       <div class="table-wrap"><table><thead><tr><th>Person</th><th class="num">Actions</th><th class="num">Orders touched</th><th class="num">Created</th><th class="num">Status moves</th><th class="num">Ordered</th><th class="num">Delivered</th><th class="num">Price updates</th></tr></thead><tbody id="actorRows"></tbody></table></div>
       <p class="panel-note">Click a name to filter the work log, activity chart and change list to that person.</p>
     </section>
     <section class="insight-grid wide-left">
       <article class="panel">
-        <div class="panel-head"><div><p class="eyebrow">Activity</p><h2>Actions per <span id="activityGran">day</span></h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Activity</p><h2 class="with-info">Actions per <span id="activityGran">day</span> <a class="info-link" href="help.php#activity" data-help="activity" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div class="chart-box chart-tall"><canvas id="activityChart" role="img" aria-label="Logged actions over time"></canvas></div>
       </article>
       <article class="panel">
-        <div class="panel-head"><div><p class="eyebrow">Rhythm</p><h2>When work happens</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Rhythm</p><h2 class="with-info">When work happens <a class="info-link" href="help.php#heatmap" data-help="heatmap" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div id="heatmap" class="heatmap" role="img" aria-label="Activity by weekday and hour"></div>
         <div class="heat-legend"><span>Less</span><i></i><i></i><i></i><i></i><i></i><span>More</span></div>
         <div id="fieldList" class="micro-list"></div>
@@ -152,29 +154,29 @@ $appName = (string)($config['app_name'] ?? 'PartPulse Intelligence');
 
     <section id="spend" class="insight-grid even">
       <article class="panel">
-        <div class="panel-head"><div><p class="eyebrow">Allocation</p><h2>By building</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Allocation</p><h2 class="with-info">By building <a class="info-link" href="help.php#buildings" data-help="buildings" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div class="chart-box"><canvas id="buildingChart" role="img" aria-label="Delivered value by building"></canvas></div>
         <div class="table-wrap compact dense"><table><thead><tr><th>Building</th><th class="num">New</th><th class="num">Done</th><th class="num">Open</th><th class="num">Value</th><th class="num">Lead</th></tr></thead><tbody id="buildingRows"></tbody></table></div>
       </article>
       <article class="panel table-panel flush">
-        <div class="panel-head"><div><p class="eyebrow">Suppliers</p><h2>Delivered in period</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Suppliers</p><h2 class="with-info">Delivered in period <a class="info-link" href="help.php#suppliers" data-help="suppliers" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div class="table-wrap tall dense"><table><thead><tr><th>Supplier</th><th class="num">Orders</th><th class="num">Value</th><th class="num">Lead</th><th class="num" title="Delivered by the date the requester needed">On time</th></tr></thead><tbody id="supplierRows"></tbody></table></div>
       </article>
     </section>
     <section class="insight-grid">
       <article class="panel">
-        <div class="panel-head"><div><p class="eyebrow">Demand</p><h2>New orders by category</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Demand</p><h2 class="with-info">New orders by category <a class="info-link" href="help.php#categories" data-help="categories" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div class="chart-box chart-tall"><canvas id="categoryChart" role="img" aria-label="New orders by category"></canvas></div>
       </article>
       <article class="panel table-panel flush">
-        <div class="panel-head"><div><p class="eyebrow">Demand</p><h2>Requesters</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">Demand</p><h2 class="with-info">Requesters <a class="info-link" href="help.php#requesters" data-help="requesters" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div></div>
         <div class="table-wrap tall"><table><thead><tr><th>Requester</th><th class="num">New in period</th><th class="num">Still open</th></tr></thead><tbody id="requesterRows"></tbody></table></div>
       </article>
     </section>
 
     <section id="watch" class="panel table-panel">
       <div class="panel-head table-heading">
-        <div><p class="eyebrow">Action queue · current snapshot</p><h2>SLA watch</h2></div>
+        <div><p class="eyebrow">Action queue · current snapshot</p><h2 class="with-info">SLA watch <a class="info-link" href="help.php#watch" data-help="watch" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div>
         <div class="tabs" role="tablist"><button role="tab" type="button" class="active" data-watch="sla">Over SLA <b id="slaCount">0</b></button><button role="tab" type="button" data-watch="overdue">Late deliveries <b id="overdueCount">0</b></button></div>
         <div class="filters"><input id="watchSearch" type="search" placeholder="Search…" aria-label="Search watchlist"><select id="watchPriority" aria-label="Priority"><option value="">All priorities</option><option>Urgent</option><option>High</option><option>Normal</option><option>Low</option></select></div>
       </div>
@@ -184,7 +186,7 @@ $appName = (string)($config['app_name'] ?? 'PartPulse Intelligence');
 
     <section id="changes" class="panel table-panel">
       <div class="panel-head table-heading">
-        <div><p class="eyebrow">Audit trail · selected period</p><h2>What changed</h2></div>
+        <div><p class="eyebrow">Audit trail · selected period</p><h2 class="with-info">What changed <a class="info-link" href="help.php#changes" data-help="changes" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2></div>
         <div class="filters"><input id="changeSearch" type="search" placeholder="Order, article, person…" aria-label="Search changes"></div>
       </div>
       <div class="chip-row" id="changeTypes" role="group" aria-label="Change types"></div>
@@ -194,7 +196,7 @@ $appName = (string)($config['app_name'] ?? 'PartPulse Intelligence');
 
     <section id="snapshots" class="panel table-panel">
       <div class="panel-head table-heading">
-        <div><p class="eyebrow">Daily uploads</p><h2>Snapshot diff</h2><p class="muted small">Compares the complete order lists of two uploads, order by order.</p></div>
+        <div><p class="eyebrow">Daily uploads</p><h2 class="with-info">Snapshot diff <a class="info-link" href="help.php#snapshots" data-help="snapshots" aria-label="How this panel is calculated" title="What is this? How is it calculated?">i</a></h2><p class="muted small">Compares the complete order lists of two uploads, order by order.</p></div>
         <div class="filters"><label class="snapshot-label">Earlier<select id="snapA"></select></label><label class="snapshot-label">Later<select id="snapB"></select></label><button class="button primary" id="runCompare" type="button">Compare</button></div>
       </div>
       <div class="diff-cards" id="diffCards"></div>

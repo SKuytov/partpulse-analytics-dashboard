@@ -191,7 +191,7 @@
       const svg = $('svg.spark', card);
       if (svg) spark(svg, d.series.map(s => +s[sparks[key]] || 0));
     });
-    $('#kpiFootnote').textContent = 'New = submitted in period. Completed = moved to Delivered in period (from the PartPulse change log). Backlog = open orders (not Delivered/Cancelled) at the end of the period. Lead time = submission to delivery.';
+    $('#kpiFootnote').textContent = 'New = submitted in period. Completed = moved to Delivered in period (from the PartPulse change log). Backlog = open orders (not Delivered/Cancelled) at the end of the period. Lead time = submission to delivery. Open the Guide for every definition.';
     const gran = granularity(d.series);
     $('#granChip').textContent = gran; $('#activityGran').textContent = gran.replace('ly', '').replace('dai', 'day');
     renderTransitions(); renderActors(); renderHeatmap(); renderBuildings(); renderSuppliers(); renderRequesters();
@@ -358,7 +358,7 @@
     make('#leadChart', { type: 'bar', data: { labels: d.lead_histogram.map(x => x.bucket), datasets: [{ label: 'Deliveries', data: d.lead_histogram.map(x => x.count), backgroundColor: d.lead_histogram.map((_, i) => i < 3 ? P : i < 5 ? A : '#9b5149'), borderRadius: 4, maxBarThickness: 34 }] }, options: base() });
 
     const act = base(); if (d.compare_series && d.compare_series.length === d.series.length) act.plugins.legend = { display: true, position: 'bottom', labels: { color: css('--muted'), boxWidth: 10, boxHeight: 10, font: { family: 'Manrope' } } };
-    make('#activityChart', { type: 'bar', data: { labels, datasets: [{ label: 'Actions', data: d.series.map(s => s.activity), backgroundColor: P, borderRadius: 3, maxBarThickness: 18 }, ...(d.compare_series && d.compare_series.length === d.series.length ? [{ label: 'Previous period', type: 'line', data: d.compare_series.map(s => s.activity), borderColor: G, borderDash: [4, 4], pointRadius: 0, borderWidth: 1.5, tension: .3 }] : [])] }, options: act });
+    make('#activityChart', { type: 'bar', data: { labels, datasets: [{ label: 'Actions', data: d.series.map(s => s.activity), backgroundColor: P, borderRadius: 3, maxBarThickness: 18 }, ...(d.compare_series && d.compare_series.length === d.series.length ? [{ label: 'Comparison period', type: 'line', data: d.compare_series.map(s => s.activity), borderColor: G, borderDash: [4, 4], pointRadius: 0, borderWidth: 1.5, tension: .3 }] : [])] }, options: act });
 
     const bo = base(); bo.scales.y.ticks.callback = v => fmtEur.format(v);
     make('#buildingChart', { type: 'bar', data: { labels: d.buildings.map(b => b.code), datasets: [{ label: 'Delivered value', data: d.buildings.map(b => b.spend), backgroundColor: [P, A, B, '#9b5149', '#6d6e86', '#4f8c74'], borderRadius: 4, maxBarThickness: 46 }] }, options: { ...bo, plugins: { ...bo.plugins, tooltip: { ...bo.plugins.tooltip, callbacks: { label: c => ` ${fmtEur2.format(c.raw)}` } } } } });
@@ -399,6 +399,12 @@
     const o = e.target.closest('[data-order]'); if (o) { openOrder(o.dataset.order); return; }
     const a = e.target.closest('[data-actor]'); if (a) { $('#fActor').value = a.dataset.actor; load(); }
   });
+  // Guide links open the matching section and remember this exact view for "Back".
+  document.addEventListener('click', e => {
+    const h = e.target.closest('[data-help]'); if (!h) return;
+    writeUrl();
+    h.href = `help.php${location.search ? `?back=${encodeURIComponent(location.search)}` : ''}${h.dataset.help ? `#${h.dataset.help}` : ''}`;
+  }, true);
   $('#drawerClose').addEventListener('click', closeDrawer); $('#drawerBackdrop').addEventListener('click', closeDrawer);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
   const links = $$('.sidebar .nav-link');

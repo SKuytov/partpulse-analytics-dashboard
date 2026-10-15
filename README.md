@@ -18,6 +18,8 @@ Each morning the administrator signs in and uploads one file. Every upload is st
 - **Order drawer:** click any order to see its full timeline across all history and snapshots.
 - Filters (building, priority, supplier, requester, category, person, free-text search), shareable URLs, light/dark theme, and a mobile layout.
 
+- **Built-in guide** (`help.php`): the **Guide** button and the small “i” links on every card and panel open a full explanation of each metric: what it shows, how it is calculated and how to read it. It includes search, light/dark mode and print/PDF, and uses this server's SLA limits and time zone. A Markdown copy lives in [docs/COO_GUIDE.md](docs/COO_GUIDE.md).
+
 The original v1 Excel workbook view is preserved at `workbook.php`.
 
 ## Accepted upload types
@@ -118,6 +120,7 @@ Tests use only the synthetic fixture `tests/fixtures/sample_partpulse.sql`.
 
 ```
 index.php            COO dashboard (public)        api.php           dashboard JSON API
+help.php             COO guide & metric definitions (app/help_content.php)
 workbook.php         legacy workbook view          api_workbook.php  legacy API (xlsx only)
 admin.php            upload centre & snapshots     upload.php / delete.php
 app/SqlDumpReader.php  safe phpMyAdmin dump parser (never executes SQL)
