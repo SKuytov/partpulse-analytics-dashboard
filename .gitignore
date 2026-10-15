@@ -1,0 +1,7 @@
+/config.php
+/vendor/
+/uploads/*
+!/uploads/.htaccess
+!/uploads/index.html
+/.DS_Store
+*.log
