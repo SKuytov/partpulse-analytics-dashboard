@@ -10,6 +10,13 @@ $config = require $configFile;
 date_default_timezone_set($config['timezone'] ?? 'Europe/Sofia');
 ini_set('display_errors', '0');
 error_reporting(E_ALL);
+header_remove('X-Powered-By');
+if (PHP_SAPI !== 'cli') {
+    header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: SAMEORIGIN');
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+    header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'");
+}
 
 if (PHP_SAPI !== 'cli') {
     session_name($config['session_name'] ?? 'PARTPULSE_ADMIN');
