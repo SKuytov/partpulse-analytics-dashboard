@@ -15,7 +15,7 @@ if (PHP_SAPI !== 'cli') {
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: SAMEORIGIN');
     header('Referrer-Policy: strict-origin-when-cross-origin');
-    header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'");
+    header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'");
 }
 
 if (PHP_SAPI !== 'cli') {
@@ -96,4 +96,37 @@ function take_flash(): ?array
     $value = $_SESSION['flash'] ?? null;
     unset($_SESSION['flash']);
     return $value;
+}
+
+/**
+ * Optional protection for the "public" COO link. When `public_access_key` is
+ * empty (default) the dashboard is open, exactly as in version 1. When it is
+ * set, the first visit must use index.php?key=THE_KEY; a long-lived cookie is
+ * then stored so the COO bookmark keeps working without a password.
+ */
+function require_public_access(bool $json = false): void
+{
+    global $config;
+    $key = (string)($config['public_access_key'] ?? '');
+    if ($key === '' || is_admin()) return;
+    $cookie = 'PP_VIEW';
+    $expected = hash_hmac('sha256', 'partpulse-view', $key);
+    $given = (string)($_GET['key'] ?? '');
+    if ($given !== '' && hash_equals($key, $given)) {
+        setcookie($cookie, $expected, [
+            'expires' => time() + 86400 * 365, 'path' => '/', 'httponly' => true, 'samesite' => 'Lax',
+            'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+        ]);
+        return;
+    }
+    if (hash_equals($expected, (string)($_COOKIE[$cookie] ?? ''))) return;
+    if ($json) json_out(['error' => 'Access key required.'], 403);
+    http_response_code(403);
+    exit('<!DOCTYPE html><meta charset="utf-8"><title>PartPulse</title><body style="font-family:sans-serif;padding:3rem">This dashboard requires the private viewing link.</body>');
+}
+
+function app_config(): array
+{
+    global $config;
+    return $config;
 }

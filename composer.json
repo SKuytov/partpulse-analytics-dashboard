@@ -1,18 +1,23 @@
 {
   "name": "skuytov/partpulse-analytics-dashboard",
-  "description": "Self-hosted PHP/MySQL analytics dashboard for daily PartPulse XLSX snapshots.",
+  "description": "Self-hosted PHP/MySQL analytics dashboard for PartPulse Orders: daily snapshots, order-level history, period comparisons.",
   "type": "project",
   "license": "MIT",
   "require": {
     "php": "^8.2",
+    "ext-fileinfo": "*",
+    "ext-mbstring": "*",
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
-    "ext-fileinfo": "*",
     "ext-zip": "*",
     "phpoffice/phpspreadsheet": "^5.10"
   },
   "config": {
     "optimize-autoloader": true,
     "sort-packages": true
+  },
+  "scripts": {
+    "test": "php tests/run.php",
+    "normalize": "php tools/normalize.php"
   }
 }
